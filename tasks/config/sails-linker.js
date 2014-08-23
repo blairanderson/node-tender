@@ -39,7 +39,6 @@ module.exports = function (grunt) {
       files: {
         '.tmp/public/**/*.html': require('../pipeline').jsFilesToInject,
         'views/**/*.html': require('../pipeline').jsFilesToInject,
-        'assets/linker/**/*.js': require('../pipeline').jsFilesToInject,
         'views/**/*.ejs': require('../pipeline').jsFilesToInject
       }
     },

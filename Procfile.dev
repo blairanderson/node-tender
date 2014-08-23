@@ -1,0 +1,2 @@
+web: npm start
+client: watchify client/app.js -o assets/js/app.js

@@ -25,3 +25,14 @@ Update Asset Pipeline in `config/pipeline`
 *You change how assets/styles/javascripts files are injected into the build*  
  
 
+
+
+*another app idea*
+
+**Monumentors** - finding mentors more easily
+
+user can create profile
+everyone is a student.
+user can toggle mentor status [:pending, :active]
+mentor can add topics that they teach.
+mentor can create refined descriptions under each.

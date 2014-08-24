@@ -46,10 +46,10 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   // Custom CRUD Rest Routes
-  'get /user': 'UserController.index',
-  'get /user/:id?': 'UserController.show',
-  'post /user': 'UserController.create',
-  'put /user/:id?': 'UserController.update',
-  'delete /user/:id?': 'UserController.destroy'
+  'get /goal': 'GoalController.index',
+  'get /goal/:id?': 'GoalController.show',
+  'post /goal': 'GoalController.create',
+  'put /goal/:id?': 'GoalController.update',
+  'delete /goal/:id?': 'GoalController.destroy'
   
 };

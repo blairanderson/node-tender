@@ -34,7 +34,7 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -45,5 +45,11 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-
+  // Custom CRUD Rest Routes
+  'get /user': 'UserController.index',
+  'get /user/:id?': 'UserController.show',
+  'post /user': 'UserController.create',
+  'put /user/:id?': 'UserController.update',
+  'delete /user/:id?': 'UserController.destroy'
+  
 };

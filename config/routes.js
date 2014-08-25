@@ -39,6 +39,8 @@ module.exports.routes = {
     view: 'app'
   },
 
+  'get /users/new': 'UserController.new',
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

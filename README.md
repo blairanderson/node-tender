@@ -26,6 +26,12 @@ Update Asset Pipeline in `config/pipeline`
  
 
 
+## Dependencies
+
+* authentication: https://github.com/kasperisager/sails-generate-auth
+* Client Deps: https://github.com/substack/watchify
+
+
 
 *another app idea*
 

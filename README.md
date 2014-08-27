@@ -1,5 +1,14 @@
 # Node Goal Tender
 
+## TODO LIST:
+
+- [ ] should be able to submit the form
+- [ ] form should save to localstorage and redirect
+- [ ] should be able to fetch data that was saved to localstorage
+- [ ] should be able to fetch products with collection using localstorage username:api_key
+- [ ] should be able to logout, which clears the "me" key in localstorage,
+
+
 ## What Is This?
 This is a [sails app](http://sailsjs.org). Its like rails but runs on node with express and is frontend agnostic. 
 

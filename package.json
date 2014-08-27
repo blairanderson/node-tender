@@ -1,10 +1,19 @@
 {
   "name": "tinder",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "browserify": {
+    "transform": ["browserify-shim"]
+  },
+  "browserify-shim": {
+    "./bower_components/localforage/dist/localforage.min.js": "localforage",
+    "localforage": "global:localforage"
+  },
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "ampersand-form-view": "^2.0.0",
+    "ampersand-input-view": "^2.0.0",
     "ampersand-model": "^4.0.1",
     "ampersand-rest-collection": "^2.0.1",
     "ampersand-view": "^6.0.10",
@@ -27,6 +36,7 @@
     "grunt-sails-linker": "~0.9.5",
     "grunt-sync": "~0.0.4",
     "grunt-watchify": "^0.1.0",
+    "handlebars": "^2.0.0-beta.1",
     "include-all": "~0.1.3",
     "passport": "^0.2.0",
     "passport-github": "^0.1.5",
@@ -51,5 +61,8 @@
     "url": "git://github.com/blairanderson/tinder.git"
   },
   "author": "blairanderson",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "browserify-shim": "^3.7.0"
+  }
 }

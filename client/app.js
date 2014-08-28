@@ -33,9 +33,6 @@ appDB.config({
   description : 'A Storage for some important sprint.ly ojects'
 });
 
-
-
-
 domReady(function(){
 
   var appContainer = document.getElementById("app-container");
@@ -44,8 +41,8 @@ domReady(function(){
 
     if (session && session.username && session.api_key){
       // TODO: Finish all README TODOs before implementing this.
-//      app.models.products = new ProductsCollection();
-//      app.views.products = new ProductsListView({collection: products});
+      // app.models.products = new ProductsCollection();
+      // app.views.products = new ProductsListView({collection: products});
 
     } else {
       var session = new Session();

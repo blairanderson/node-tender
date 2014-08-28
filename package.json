@@ -3,7 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "browserify": {
-    "transform": ["browserify-shim"]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "browserify-shim": {
     "./bower_components/localforage/dist/localforage.min.js": "localforage",

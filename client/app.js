@@ -2,9 +2,19 @@
  * Created by blairanderson on 8/20/14.
  */
 
-
-var domReady = require('domready');
+// database
 var appDB = window.localforage;
+
+// events
+var domReady = require('domready');
+
+
+// views
+var SignupForm = require("./forms/session.js");
+
+
+// models
+var Session = require('./models/session.js');
 /**
  * With localForage, we use callbacks:
  *  => localforage.setItem('key', 'value', doSomethingElse);
@@ -23,35 +33,29 @@ appDB.config({
   description : 'A Storage for some important sprint.ly ojects'
 });
 
-var SignupForm = require("./forms/me.js");
-var Me = require('./models/me.js');
+
 
 
 domReady(function(){
 
   var appContainer = document.getElementById("app-container");
 
-  appDB.getItem('me', function(me){
+  appDB.getItem('session', function(session){
 
-    if (me && me.username && me.api_key){
+    if (session && session.username && session.api_key){
       // TODO: Finish all README TODOs before implementing this.
-      app.models.products = new ProductsCollection();
-      app.views.products = new ProductsListView({collection: products});
+//      app.models.products = new ProductsCollection();
+//      app.views.products = new ProductsListView({collection: products});
 
     } else {
-
+      var session = new Session();
       var signupForm = new SignupForm({
-        model: new Me()
-//        onSubmit: function (value) {
-//          appDB.set("me", {
-//            username: value.username,
-//            api_key: value.api_key
-//          }, function () {return document.location.reload(true);})
-//        }
+        model: session
       });
 
       signupForm.render();
-      appContainer.innerHTML = signupForm.el.innerHTML;
+
+      appContainer.innerHTML = signupForm.el.outerHTML;
     }
   });
 });

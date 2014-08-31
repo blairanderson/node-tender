@@ -26,6 +26,8 @@ var jsFilesToInject = [
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
   'js/dependencies/localforage/dist/localforage.js',
+  'js/dependencies/jquery/dist/jquery.js',
+  'js/dependencies/lodash/dist/lodash.underscore.js',
   // Dependencies like jQuery, or Angular are brought in here
 
   // All of the rest of your client-side js files

@@ -8,10 +8,8 @@ var appDB = window.localforage;
 // events
 var domReady = require('domready');
 
-
 // views
 var SignupForm = require("./forms/session.js");
-
 
 // models
 var Session = require('./models/session.js');
@@ -45,9 +43,9 @@ domReady(function(){
       // app.views.products = new ProductsListView({collection: products});
 
     } else {
-      var session = new Session();
+
       var signupForm = new SignupForm({
-        model: session
+        model: new Session()
       });
 
       signupForm.render();

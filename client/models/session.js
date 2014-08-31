@@ -1,10 +1,9 @@
-// me Model - me.js
-var AmpModel = require('ampersand-model');
+
+// database
+var appDB = window.localforage;
 
 
-module.exports = AmpModel.extend({
-  props: {
-    email: ['string'],
-    api_key: ['string']
-  }
-});
+module.exports = function Session(opts) {
+  this.db = appDB;
+}
+

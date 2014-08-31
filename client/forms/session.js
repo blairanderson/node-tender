@@ -1,35 +1,33 @@
-var FormView = require('ampersand-form-view');
-var InputView = require('ampersand-input-view');
+var Backbone = require('backbone');
+Backbone.$ = window.$;
+var Handlebars = require('handlebars');
 
-module.exports = FormView.extend({
+var template = Handlebars.compile(
+  ['<div class="jumbotron">',
+    '<div class="container">',
+    '<span class="glyphicon glyphicon-list-alt"></span>',
+    '<div class="box">',
+    '<input type="text" placeholder="username">',
+    '<input type="password" placeholder="password">',
+    '<input type="submit" value="Go" class="btn btn-default full-width">',
+    '</div>',
+    '</div>',
+    '</div>'].join("\n")
+);
+
+module.exports = Backbone.View.extend({
+  template: template,
   events: {
-    "click input[type='submit']": ""
+    "click button": "submitCallback"
   },
-  fields: function () {
-    return [
-      new InputView({
-        label: 'Email',
-        name: 'email',
-        value: this.model.email || '',
-        required: false,
-        placeholder: 'Email',
-        parent: this
-      }),
-      new InputView({
-        label: 'Api Key',
-        name: 'api_key',
-        value: this.model.api_key || '',
-        required: false,
-        placeholder: 'Api Key',
-        parent: this
-      }),
-      new InputView({
-        type: 'submit',
-        value: 'GO',
-        parent: this
-      })
-    ];
+
+  render: function () {
+    if (!this.el) {
+      this.el = document.createElement('div');
+    }
+    this.el.innerHTML = template();
   },
+
   validCallback: function (valid) {
     if (valid) {
       console.log('The form is valid!');
@@ -38,7 +36,7 @@ module.exports = FormView.extend({
     }
   },
   submitCallback: function (obj) {
-    debugger
     console.log('form submitted! Your data:', obj);
   }
 });
+

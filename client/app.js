@@ -1,14 +1,14 @@
-/**
- * Created by blairanderson on 8/20/14.
- */
+/** @jsx React.DOM */
 
-// database
 var appDB = window.localforage;
 
-// views
-var SignupForm = require("./forms/session.js");
+var React = require('react');
+var _ = require('lodash');
 
-// models
+var SignupForm = require("./forms/session.js");
+var List = require('./component/List');
+
+
 var Session = require('./models/session.js');
 var sprintly = require('sprintly');
 /**
@@ -36,28 +36,30 @@ $(function () {
 
   appDB.getItem('session', function (session) {
     if (session && session.email && session.api_key) {
-      debugger
-      session = new Session(session);
 
+      session = new Session(session);
       session.authenticate(function (err, res) {
         if (err) {
           console.log(err);
-          debugger
           // show error!
+          // delete session
         } else {
           App.products = res.products;
-          debugger
+          var products = _(App.products.models).map( function(product){
+            return _.pick(product.attributes, "id", "name", "created_at")
+          }).sortBy("id").value();
+
+          React.renderComponent(<List products={products} />, appContainer);
         }
       });
-      // TODO: Finish all README TODOs before implementing this.
-      // app.models.products = new ProductsCollection();
-      // app.views.products = new ProductsListView({collection: products});
 
     } else {
+
       var signupForm = new SignupForm({
         model: appDB,
         el: appContainer
       });
+
       signupForm.render();
     }
   });

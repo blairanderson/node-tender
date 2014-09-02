@@ -5,14 +5,12 @@
 // database
 var appDB = window.localforage;
 
-// events
-var domReady = require('domready');
-
 // views
 var SignupForm = require("./forms/session.js");
 
 // models
 var Session = require('./models/session.js');
+var sprintly = require('sprintly');
 /**
  * With localForage, we use callbacks:
  *  => localforage.setItem('key', 'value', doSomethingElse);
@@ -31,27 +29,36 @@ appDB.config({
   description : 'A Storage for some important sprint.ly ojects'
 });
 
-domReady(function(){
+$(function(){
 
   var appContainer = document.getElementById("app-container");
+  var App = {};
 
   appDB.getItem('session', function(session){
+    if (session && session.email && session.api_key){
+      debugger
+      session = new Session(session);
 
-    if (session && session.username && session.api_key){
+      session.authenticate(function(err, res){
+        if (err) {
+          console.log(err);
+          debugger
+          // show error!
+        } else {
+          App.products = res.products;
+          debugger
+        }
+      });
       // TODO: Finish all README TODOs before implementing this.
       // app.models.products = new ProductsCollection();
       // app.views.products = new ProductsListView({collection: products});
 
     } else {
-
       var signupForm = new SignupForm({
-        model: new Session()
+        model: appDB,
+        el: appContainer
       });
-
       signupForm.render();
-
-      appContainer.innerHTML = signupForm.el.outerHTML;
     }
   });
 });
-

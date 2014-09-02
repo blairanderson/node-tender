@@ -1,16 +1,4 @@
-/** @jsx React.DOM */
-
 var appDB = window.localforage;
-
-var React = require('react');
-var _ = require('lodash');
-
-var SignupForm = require("./forms/session.js");
-var List = require('./component/List');
-
-
-var Session = require('./models/session.js');
-var sprintly = require('sprintly');
 /**
  * With localForage, we use callbacks:
  *  => localforage.setItem('key', 'value', doSomethingElse);
@@ -21,13 +9,12 @@ var sprintly = require('sprintly');
  *     });
  */
 
-appDB.config({
-  name: 'sprintly',
-  version: 1.0,
-  size: 4980736, // Size of database, in bytes. WebSQL-only for now.
-  storeName: 'User/Products/Items/Store',
-  description: 'A Storage for some important sprint.ly ojects'
-});
+var SignupForm = require("./forms/session.js");
+var Navigation = require("./views/shared/navigation");
+var ProductsIndex = require('./views/products/index');
+
+var Session = require('./models/session.js');
+var sprintly = require('sprintly');
 
 $(function () {
 
@@ -35,32 +22,39 @@ $(function () {
   var App = {};
 
   appDB.getItem('session', function (session) {
-    if (session && session.email && session.api_key) {
 
-      session = new Session(session);
-      session.authenticate(function (err, res) {
+    if (session && session.email && session.api_key) {
+      new Session(session).authenticate(function (err, res) {
+
         if (err) {
           console.log(err);
           // show error!
           // delete session
         } else {
-          App.products = res.products;
-          var products = _(App.products.models).map( function(product){
-            return _.pick(product.attributes, "id", "name", "created_at")
-          }).sortBy("id").value();
+          //TODO: pass these things to the router
+          ProductsIndex({
+            el: appContainer,
+            products: res.products
+          });
 
-          React.renderComponent(<List products={products} />, appContainer);
+          var nav = new Navigation().render()
+          nav.$el.insertBefore(appContainer);
         }
       });
 
+
     } else {
 
-      var signupForm = new SignupForm({
-        model: appDB,
-        el: appContainer
-      });
-
+      var signupForm = new SignupForm({el: appContainer});
       signupForm.render();
     }
   });
+});
+
+appDB.config({
+  name: 'sprintly',
+  version: 1.0,
+  size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+  storeName: 'User/Products/Items/Store',
+  description: 'A Storage for some important sprint.ly ojects'
 });

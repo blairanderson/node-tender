@@ -1,2 +1,1 @@
-web: npm start
-client: watchify client/app.js -o assets/js/app.js
+client: watchify -t hbsfy -t reactify client/app.js -o assets/js/app.js

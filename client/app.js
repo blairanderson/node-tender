@@ -22,24 +22,24 @@ var sprintly = require('sprintly');
  */
 
 appDB.config({
-  name        : 'sprintly',
-  version     : 1.0,
-  size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
-  storeName   : 'User/Products/Items/Store',
-  description : 'A Storage for some important sprint.ly ojects'
+  name: 'sprintly',
+  version: 1.0,
+  size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+  storeName: 'User/Products/Items/Store',
+  description: 'A Storage for some important sprint.ly ojects'
 });
 
-$(function(){
+$(function () {
 
   var appContainer = document.getElementById("app-container");
   var App = {};
 
-  appDB.getItem('session', function(session){
-    if (session && session.email && session.api_key){
+  appDB.getItem('session', function (session) {
+    if (session && session.email && session.api_key) {
       debugger
       session = new Session(session);
 
-      session.authenticate(function(err, res){
+      session.authenticate(function (err, res) {
         if (err) {
           console.log(err);
           debugger

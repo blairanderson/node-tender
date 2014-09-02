@@ -9,26 +9,26 @@ module.exports = Backbone.View.extend({
   },
 
   render: function () {
-    if (!this.el) {this.el = document.createElement('div');}
+    if (!this.el) {
+      this.el = document.createElement('div');
+    }
 
     this.$el.html(this.template());
     return this
   },
 
   submitCallback: function (e) {
-    var self = this,
-      fields = {},
-      session;
-
     e.preventDefault();
 
-    _.each($(e.currentTarget).serializeArray(), function(input){
+    var fields = {}, session;
+
+    _.each($(e.currentTarget).serializeArray(), function (input) {
       fields[input.name] = input.value
     });
 
     session = new Session(fields);
 
-    session.authenticate(function(err, res){
+    session.authenticate(function (err, res) {
       if (err) {
         console.log(err);
         debugger
@@ -37,8 +37,8 @@ module.exports = Backbone.View.extend({
         var session = {
           email: res.email,
           api_key: res.api_key
-        }
-        window.localforage.setItem('session', session, function(){
+        };
+        window.localforage.setItem('session', session, function () {
           window.location.reload()
         });
       }

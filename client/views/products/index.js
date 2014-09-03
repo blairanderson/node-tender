@@ -2,7 +2,18 @@
 
 var React = require('react');
 var _ = require('lodash');
+var $ = require('jquery');
+
+var Router = require('../../router');
+
 var List = require('../../component/List');
+var Items = require('../../component/Items');
+
+
+function showSpinner(el){
+  var spinner = "Spinner";
+  el.innerHTML = spinner;
+}
 
 module.exports = function (opts){
   var products = opts.products

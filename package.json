@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "ampersand-router": "^1.0.2",
     "backbone": "^1.1.2",
     "bcrypt": "^0.8.0",
     "browserify": "^5.10.0",

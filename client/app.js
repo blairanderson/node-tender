@@ -13,6 +13,8 @@ var SignupForm = require("./forms/session.js");
 var Navigation = require("./views/shared/navigation");
 var ProductsIndex = require('./views/products/index');
 
+var Router = require('./router');
+
 var Session = require('./models/session.js');
 var sprintly = require('sprintly');
 
@@ -32,13 +34,20 @@ $(function () {
           // delete session
         } else {
           //TODO: pass these things to the router
-          ProductsIndex({
+          var app = ProductsIndex({
             el: appContainer,
             products: res.products
           });
 
           var nav = new Navigation().render()
           nav.$el.insertBefore(appContainer);
+
+          var router = new Router();
+          
+          Backbone.history.start({
+            root: '/app',
+            silent: false
+          });
         }
       });
 

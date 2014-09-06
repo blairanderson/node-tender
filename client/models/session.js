@@ -8,18 +8,35 @@ var sprintly = require('sprintly');
 
 module.exports = Backbone.Model.extend({
   url: "https://sprint.ly/products.json",
-  authenticate: function (callback) {
-    var self = this,
-      email = self.get("email"),// your actual email
-      api_key = self.get("api_key");// your actual api_key
 
-    sprintly.createClient(email, api_key).products.fetch().done(function (products) {
-      callback(null, {
-        email: email,
-        api_key: api_key,
-        products: products
-      })
-      console.log(products);
-    }, callback);
+  getSession: function(callback) {
+    appDB.getItem("session", function(session){
+      if (session && session.email && session.api_key) {
+        return callback(null, session);
+      } else {
+        return callback("Missing Session");
+      }
+    });
+  },
+
+  authenticate: function (callback) {
+    var self = this;
+
+    this.getSession(function(err, session){
+      if (err) {
+        return callback("Session Missing");
+      }
+
+      
+      sprintly.createClient(session.email, session.api_key).products.fetch().done(function (products) {
+        callback(null, {
+          email: session.email,
+          api_key: session.api_key,
+          products: products
+        })
+        console.log(products);
+      }, callback);
+
+    });
   }
 });

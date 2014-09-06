@@ -5,7 +5,7 @@ var _ = require('underscore');
 module.exports = Backbone.View.extend({
   template: template,
   events: {
-    "submit form": "submitCallback"
+    "submit form": "submitForm"
   },
 
   render: function () {
@@ -17,31 +17,29 @@ module.exports = Backbone.View.extend({
     return this
   },
 
-  submitCallback: function (e) {
+  submitForm: function (e) {
     e.preventDefault();
 
-    var fields = {}, session;
+    var fields = {},
+    session,
+    self = this;
 
     _.each($(e.currentTarget).serializeArray(), function (input) {
       fields[input.name] = input.value
     });
 
-    session = new Session(fields);
+    window.localforage.setItem("session", fields, function(){
+      session = new Session();
 
-    session.authenticate(function (err, res) {
-      if (err) {
-        console.log(err);
-        debugger
-        // show error!
-      } else {
-        var session = {
-          email: res.email,
-          api_key: res.api_key
-        };
-        window.localforage.setItem('session', session, function () {
+      session.authenticate(function (err, res) {
+        if (err) {
+          var errEl = document.getElementById("error");
+          errEl.innerHTML = err.body.message;
+          // show error!
+        } else {
           window.location.reload()
-        });
-      }
+        }
+      });
     });
   }
 });
